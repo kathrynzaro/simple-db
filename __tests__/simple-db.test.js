@@ -33,4 +33,43 @@ describe('simple database', () => {
     const res = await db.getFileById(dinner.id);
     expect(res).toEqual(dinner);
   });
+
+  it('getAll', async () => {
+    const signs = [
+      {
+        sign: 'cancer',
+        element: 'water',
+      },
+      {
+        sign: 'libra',
+        element: 'air',
+      },
+      {
+        sign: 'scorpio',
+        element: 'water',
+      },
+    ];
+    const db = new SimpleDb(TEST_DIR);
+    signs.forEach(async (sign) => {
+      await db.save(sign);
+    });
+    const res = await db.getAll();
+    expect(res).toEqual([
+      {
+        sign: expect.any(String),
+        element: expect.any(String),
+        id: expect.any(String),
+      },
+      {
+        sign: expect.any(String),
+        element: expect.any(String),
+        id: expect.any(String),
+      },
+      {
+        sign: expect.any(String),
+        element: expect.any(String),
+        id: expect.any(String),
+      },
+    ]);
+  });
 });
