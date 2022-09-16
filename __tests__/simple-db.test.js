@@ -34,7 +34,7 @@ describe('simple database', () => {
     expect(res).toEqual(dinner);
   });
 
-  it('getAll', async () => {
+  it('getAll', () => {
     const signs = [
       {
         sign: 'cancer',
@@ -50,26 +50,27 @@ describe('simple database', () => {
       },
     ];
     const db = new SimpleDb(TEST_DIR);
-    signs.forEach(async (sign) => {
-      await db.save(sign);
+    signs.forEach((sign) => {
+      return db.save(sign);
     });
-    const res = await db.getAll();
-    expect(res).toEqual([
-      {
-        sign: expect.any(String),
-        element: expect.any(String),
-        id: expect.any(String),
-      },
-      {
-        sign: expect.any(String),
-        element: expect.any(String),
-        id: expect.any(String),
-      },
-      {
-        sign: expect.any(String),
-        element: expect.any(String),
-        id: expect.any(String),
-      },
-    ]);
+    return db.getAll().then((res) => {
+      expect(res).toEqual([
+        {
+          sign: expect.any(String),
+          element: expect.any(String),
+          id: expect.any(String),
+        },
+        {
+          sign: expect.any(String),
+          element: expect.any(String),
+          id: expect.any(String),
+        },
+        {
+          sign: expect.any(String),
+          element: expect.any(String),
+          id: expect.any(String),
+        },
+      ]);
+    });
   });
 });
